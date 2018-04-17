@@ -16,6 +16,7 @@ public:
     // constructor associates whole range of K with val by inserting (K_min, val)
     // into the map
     interval_map( V const& val) {
+        cout << "interval_map std::numeric_limits<K>::lowest() = " << std::numeric_limits<K>::lowest() << endl;
         m_map.insert(m_map.begin(),std::make_pair(std::numeric_limits<K>::lowest(),val));
     }
 
@@ -30,23 +31,40 @@ public:
         cout << "assign 0 keyBegin = " << keyBegin << ", keyEnd = " << keyEnd << ", V = " << val << endl;
         // auto it_blow = m_map.lower_bound (keyBegin);
         // cout << "assign -1 it_blow->first = " << it_blow->first << endl;
+        if( keyBegin >= keyEnd ) {
+            return;
 
-        
-        
-        auto it_bup = m_map.upper_bound (keyBegin);
-        cout << "assign 1 it_bup->first = " << it_bup->first << endl;
+            // "and assign must do nothing." what's mean?
+            // or:
+
+            val = m_map.end()->second;
+
+            if( keyEnd == keyBegin )
+                keyEnd = keyBegin + 1;
+            else
+                swap(keyEnd, keyBegin);
+        }
 
         auto vEnd = (*this)[keyEnd];
         cout << "assign 2 vEnd = " << vEnd << endl;
 
+        // delete old key between keyBegin and keyEnd
+        auto it_del_first = m_map.upper_bound( keyBegin );
+        auto it_del_last = m_map.lower_bound( keyEnd );
+        cout << "assign 1 it_del_first->first = " << it_del_first->first << ", it_del_last->first = " << it_del_last->first << endl;
+        m_map.erase( it_del_first, it_del_last );
+
+        /*
         while( keyBegin < it_bup->first && it_bup->first < keyEnd ) {
             m_map.erase(it_bup);
-            it_bup = m_map.upper_bound (keyBegin);  
+            it_bup = m_map.upper_bound( keyBegin );  
         }
+        */
 
         m_map.insert({keyBegin, val});
         m_map.insert({keyEnd, vEnd});
     }
+
 
     // look-up of the value associated with key
     V const& operator[]( K const& key ) const {
