@@ -1,3 +1,4 @@
+// souo docker start -i aaee12db3e2d
 // sudo docker run -i -t -v /home/yangyuqi/gcc17:/root/gcc17 --privileged=true 352b3df66999 /bin/bash
 // g++ -std=c++17 -pthread -o a.out cpp17_test.cpp
 

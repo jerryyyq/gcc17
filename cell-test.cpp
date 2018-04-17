@@ -36,13 +36,21 @@ public:
 
             // "and assign must do nothing." what's mean?
             // or:
-
-            val = m_map.end()->second;
+            auto val_add = m_map.end()->second;
+            auto keyEnd_add = keyBegin;
+            auto keyBegin_add = keyEnd;
 
             if( keyEnd == keyBegin )
-                keyEnd = keyBegin + 1;
-            else
-                swap(keyEnd, keyBegin);
+                keyEnd_add = keyBegin + 1;
+
+            auto vEnd = (*this)[keyEnd_add];
+            auto it_del_first = m_map.upper_bound( keyBegin_add );
+            auto it_del_last = m_map.lower_bound( keyEnd_add );
+            m_map.erase( it_del_first, it_del_last );
+            m_map.insert({keyBegin_add, val_add});
+            m_map.insert({keyEnd_add, vEnd});
+
+            return;
         }
 
         auto vEnd = (*this)[keyEnd];
@@ -87,6 +95,8 @@ void IntervalMapTest() {
 
     tmap.assign(3, 10, 'E');
 
+    tmap.assign(-100, 2, 'F');
+
     /*
     std::map<int, char>::iterator iter;  
     for(iter = tmap.begin(); iter != tmap.end(); iter++) {
@@ -101,6 +111,8 @@ void IntervalMapTest() {
     cout << "20 => " << tmap[20] << endl;
     cout << "25 => " << tmap[25] << endl;
     cout << "30 => " << tmap[30] << endl;
+    cout << "-10 => " << tmap[-10] << endl;
+    cout << "-1000 => " << tmap[-1000] << endl;
 }
 
 // Many solutions we receive are incorrect. Consider using a randomized test
