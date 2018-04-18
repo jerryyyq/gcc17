@@ -149,6 +149,9 @@ void IntervalMapTest() {
     tmap.assign(std::numeric_limits<int>::lowest(), 1000, 'T');    
     tmap.assign(0, 22, 'T');
     tmap.assign(2000, 3000, 'T');
+    tmap.assign(2000, 3000, 'T');
+    tmap.assign(2000, 3000, 'U');
+    tmap.assign(2000, 3000, 'T');
     tmap.assign(900, 1100, 'T');
     tmap.assign(1900, 2200, 'T');
     tmap.assign(1800, 3200, 'T');
