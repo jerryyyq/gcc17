@@ -2,8 +2,11 @@
 #include <map>
 #include <limits>
 #include <iostream>
+#include <ctime>
 
 using namespace std;
+
+#define random(a,b) (rand()%(b-a+1)+a)
 
 template<class K, class V>
 class interval_map {
@@ -131,6 +134,19 @@ public:
 
 void IntervalMapTest() {
     interval_map<int, char> tmap('A');
+
+    srand((unsigned)time(NULL));
+    auto keyBegin = 0, keyEnd = 0;
+    for( int i=0; i<1000; i++ ) {
+        keyBegin = random(0, 10);
+        keyEnd = random(0, 10);
+        tmap.assign(keyBegin, keyEnd, 'A' + keyBegin);
+        cout << "---------------------------------- i = " << i << endl << endl;
+    }
+    return;
+
+
+
     cout << "1 => " << tmap[1] << endl;
 
     tmap.assign(8, 15, 'B');
@@ -177,11 +193,6 @@ void IntervalMapTest() {
     cout << "-1000 => " << tmap[-1000] << endl;
 }
 
-// Many solutions we receive are incorrect. Consider using a randomized test
-// to discover the cases that your implementation does not handle correctly.
-// We recommend to implement a function IntervalMapTest() here that tests the
-// functionality of the interval_map, for example using a map of unsigned int
-// intervals to char.
 
 int main() {
 
