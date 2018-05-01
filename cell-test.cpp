@@ -91,7 +91,7 @@ public:
         if( it_del_first != m_map.end() && it_del_first->first < keyEnd && \
                 ( it_del_first->first <= it_del_last->first || it_del_last == m_map.end() ) ) {
             cout << "---------------erase" << endl;
-            if( it_del_first->first == it_del_last->first )
+            if( it_del_first == it_del_last )
                 m_map.erase( it_del_first );
             else
                 m_map.erase( it_del_first, it_del_last );
@@ -134,6 +134,16 @@ public:
 
 void IntervalMapTest() {
     interval_map<int, char> tmap('A');
+/*
+    tmap.assign(2, 4, 'C');
+    tmap.assign(3, 6, 'D');
+    tmap.assign(2, 4, 'C');    
+    tmap.assign(4, 8, 'E');
+    return;
+*/
+
+
+
 
     srand((unsigned)time(NULL));
     auto keyBegin = 0, keyEnd = 0;
@@ -192,6 +202,68 @@ void IntervalMapTest() {
     cout << "-10 => " << tmap[-10] << endl;
     cout << "-1000 => " << tmap[-1000] << endl;
 }
+
+
+/*
+
+interval_map std::numeric_limits<K>::lowest() = -2147483648, val = A
+ ++++++++ assign 0 keyBegin = 2, keyEnd = 4, V = C
+assign 1 it_del_first->first = 1, it_del_first->second = 
+assign 1 it_del_last->first = 1, it_del_last->second = 
+assign 2 it_befor_begin->first = -2147483648, it_befor_begin->second = A
+assign 3 vEnd = A
+assign 4 it_del_first->first = 1, it_del_first->second = 
+assign 4 it_del_last->first = 1, it_del_last->second = 
+print_map it->first = -2147483648, it->second A
+print_map it->first = 2, it->second C
+print_map it->first = 4, it->second A
+---------------------------------- i = 0
+
+ ++++++++ assign 0 keyBegin = 3, keyEnd = 6, V = D
+assign 1 it_del_first->first = 4, it_del_first->second = A
+assign 1 it_del_last->first = 3, it_del_last->second = 
+assign 2 it_befor_begin->first = 2, it_befor_begin->second = C
+assign 3 vEnd = A
+assign 4 it_del_first->first = 4, it_del_first->second = A
+assign 4 it_del_last->first = 3, it_del_last->second = 
+---------------erase
+print_map it->first = -2147483648, it->second A
+print_map it->first = 2, it->second C
+print_map it->first = 3, it->second D
+print_map it->first = 6, it->second A
+---------------------------------- i = 1
+
+ ++++++++ assign 0 keyBegin = 2, keyEnd = 4, V = C
+assign 1 it_del_first->first = 2, it_del_first->second = C
+assign 1 it_del_last->first = 6, it_del_last->second = A
+assign 2 it_befor_begin->first = 2, it_befor_begin->second = C
+assign 10 it_del_first->first = 3, it_del_first->second = D
+assign 3 vEnd = D
+assign 4 it_del_first->first = 3, it_del_first->second = D
+assign 4 it_del_last->first = 6, it_del_last->second = A
+---------------erase
+print_map it->first = -2147483648, it->second A
+print_map it->first = 2, it->second C
+print_map it->first = 4, it->second D
+print_map it->first = 6, it->second A
+---------------------------------- i = 2
+
+ ++++++++ assign 0 keyBegin = 4, keyEnd = 8, V = E
+assign 1 it_del_first->first = 4, it_del_first->second = D
+assign 1 it_del_last->first = 4, it_del_last->second = 
+assign 2 it_befor_begin->first = 4, it_befor_begin->second = D
+assign 3 vEnd = A
+assign 4 it_del_first->first = 4, it_del_first->second = D
+assign 4 it_del_last->first = 4, it_del_last->second = 
+---------------erase
+print_map it->first = -2147483648, it->second A
+print_map it->first = 2, it->second C
+print_map it->first = 4, it->second E
+print_map it->first = 6, it->second A
+print_map it->first = 8, it->second A
+---------------------------------- i = 3
+
+*/
 
 
 int main() {
