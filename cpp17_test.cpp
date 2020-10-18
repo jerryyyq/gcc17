@@ -2,6 +2,9 @@
 // sudo docker run -i -t -v /home/yangyuqi/gcc17:/root/gcc17 --privileged=true 352b3df66999 /bin/bash
 // g++ -std=c++17 -pthread -o a.out cpp17_test.cpp
 
+// Ubuntu18.04 GCC9 安装 https://zhuanlan.zhihu.com/p/163426285
+// g++-9 -std=c++17 -Wall -Wextra -pedantic -O2 cpp17_test.cpp -o cpp17_test -L /usr/local/lib/ -ltbb
+
 #include <memory>
 #include <iostream>
 #include <future>
